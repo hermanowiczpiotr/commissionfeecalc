@@ -1,5 +1,6 @@
 <?php
 
+
 declare(strict_types=1);
 
 namespace App\Application\Commission\Import;
@@ -11,7 +12,7 @@ use App\Infrastructure\FileLoader\LoadDataFromFile;
 
 class CurrencyRatesImporter
 {
-    private const FILENAME = 'rates.csv';
+    private const FILENAME = 'rates.json';
 
     public function __construct(
         private readonly LoadDataFromFile $loadDataFromFile,
@@ -23,7 +24,7 @@ class CurrencyRatesImporter
     public function import(): void
     {
         $data = $this->loadDataFromFile->loadByFilename(self::FILENAME);
-        $currencyRateDtos = $this->currencyRateDtoFactory->createFromData($data);
+        $currencyRateDtos = $this->currencyRateDtoFactory->createFromData(json_decode($data, true));
 
         foreach ($currencyRateDtos as $currencyRateDto) {
             $this->currencyRateRepository->add(

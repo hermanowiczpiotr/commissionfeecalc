@@ -1,5 +1,6 @@
 <?php
 
+
 declare(strict_types=1);
 
 namespace App\Domain\Commission\Entity;
@@ -67,6 +68,11 @@ final class Commission
     public function getDateWeekNumber(): int
     {
         return (int) $this->date->format('W');
+    }
+
+    public function getDateYearNumber(): int
+    {
+        return (int) $this->date->format('Y');
     }
 
     public function getCurrencyType(): CurrencyType

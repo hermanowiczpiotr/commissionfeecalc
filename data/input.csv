@@ -1,3 +1,4 @@
+date,userId,clientType,operationType,amount,currency
 2014-12-31,4,private,withdraw,1200.00,EUR
 2015-01-01,4,private,withdraw,1000.00,EUR
 2016-01-05,4,private,withdraw,1000.00,EUR

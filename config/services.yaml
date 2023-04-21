@@ -15,13 +15,29 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
-
+        exclude:
+            - '../src/{Entity}'
+    _instanceof:
+        App\Domain\Commission\Service\FeeCalculator:
+            tags: [ 'fee_calculator' ]
 
     App\Infrastructure\Persistence\CommissionMemoryRepository:
-        singleton: true
+#        singleton: true
 
     App\Infrastructure\Persistence\CurrencyRateMemoryRepository:
-        singleton: true
+#        singleton: true
+
+    App\UI\CLI\Commission\CommissionFeeCalculator:
+        arguments:
+            $name: 'Commission Fee Calculator'
+
+    App\Application\Commission\Handler\CommissionFeeCalculatorHandler:
+        arguments:
+            $feeCalculators: !tagged_iterator fee_calculator
+
+    App\Infrastructure\FileLoader\LoadDataFromFile:
+        arguments:
+            $dataDirectory: '%kernel.project_dir%/data'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

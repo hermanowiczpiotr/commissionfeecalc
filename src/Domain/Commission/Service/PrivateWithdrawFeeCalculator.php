@@ -1,5 +1,6 @@
 <?php
 
+
 declare(strict_types=1);
 
 namespace App\Domain\Commission\Service;
@@ -20,7 +21,8 @@ final class PrivateWithdrawFeeCalculator implements FeeCalculator
     {
         $amount = $this->currencyCalculator->calculateRate($commission);
         $freeLimit = $this->freeWithdrawLimitCalculator->calculate($commission);
-        return max(($amount - $freeLimit) * 0.03, 0.0);
+
+        return max(($amount - $freeLimit) * 0.003, 0.0);
     }
 
     public function support(Commission $commission): bool

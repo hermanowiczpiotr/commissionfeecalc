@@ -1,5 +1,6 @@
 <?php
 
+
 declare(strict_types=1);
 
 namespace App\UI\CLI\Commission;
@@ -31,10 +32,9 @@ final class CommissionFeeCalculator extends Command
         );
 
         foreach ($commissionsFees as $commissionFee) {
-            $output->write($commissionFee);
+            $output->write(sprintf("%s\n", $commissionFee));
         }
 
         return Command::SUCCESS;
-
     }
 }

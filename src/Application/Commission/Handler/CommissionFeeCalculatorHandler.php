@@ -18,7 +18,7 @@ final class CommissionFeeCalculatorHandler
     {
         foreach ($this->feeCalculators as $feeCalculator) {
             if($feeCalculator->support($commission)) {
-                return $feeCalculator->calculate($commission);
+                return round($feeCalculator->calculate($commission), 2, PHP_ROUND_HALF_UP);
             }
         }
 

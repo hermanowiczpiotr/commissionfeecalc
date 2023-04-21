@@ -1,5 +1,6 @@
 <?php
 
+
 declare(strict_types=1);
 
 namespace App\Domain\Commission\Service;
@@ -18,7 +19,8 @@ final class BusinessDepositFeeCalculator implements FeeCalculator
     public function calculate(Commission $commission): float
     {
         $amount = $this->currencyCalculator->calculateRate($commission);
-        return $amount * 0.003;
+
+        return $amount * 0.0003;
     }
 
     public function support(Commission $commission): bool

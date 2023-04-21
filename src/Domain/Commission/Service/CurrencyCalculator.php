@@ -1,5 +1,6 @@
 <?php
 
+
 declare(strict_types=1);
 
 namespace App\Domain\Commission\Service;
@@ -23,6 +24,6 @@ class CurrencyCalculator
 
         $currencyRate = $this->currencyRateRepository->getRateByCode($commission->getCurrencyType());
 
-        return $commission->getAmount() * $currencyRate->getRate();
+        return $commission->getAmount() / round($currencyRate->getRate(), 2, PHP_ROUND_HALF_UP);
     }
 }
