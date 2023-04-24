@@ -13,8 +13,6 @@ class FreeWithdrawLimitCalculator
 {
     private const FEE_FREE_OF_CHARGE_LIMIT = 1000.00;
 
-    private const FIRST_WEEK_OF_YEAR = 01;
-
     public function __construct(
         private readonly CommissionRepository $commissionRepository,
         private readonly CurrencyCalculator $currencyCalculator
@@ -42,7 +40,7 @@ class FreeWithdrawLimitCalculator
             //for case if first week of year started in previous year
             if ($commission->getDateWeekNumber() === $userCommission->getDateWeekNumber() &&
                 $commission->getDateYearNumber() !== $userCommission->getDateYearNumber() &&
-                $userCommission->getDateWeekNumber() != self::FIRST_WEEK_OF_YEAR
+                $commission->getDate()->diff($userCommission->getDate())->days > 7
             ) {
                 continue;
             }
@@ -66,7 +64,6 @@ class FreeWithdrawLimitCalculator
         $commissionsByWeek = $segregatedByWeekNumber[$week];
 
         $limit = self::FEE_FREE_OF_CHARGE_LIMIT;
-
         /** @var Commission $commissionByWeek  */
         foreach ($commissionsByWeek as $commissionByWeek) {
             $limit -= $this->currencyCalculator->calculateRate($commissionByWeek);
