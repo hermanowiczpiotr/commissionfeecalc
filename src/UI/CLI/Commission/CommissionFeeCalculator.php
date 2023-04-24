@@ -28,9 +28,7 @@ final class CommissionFeeCalculator extends Command
 
     protected function configure(): void
     {
-        $this
-            // ...
-            ->addArgument('file', InputArgument::REQUIRED, 'file name')
+        $this->addArgument('file', InputArgument::REQUIRED, 'file name')
         ;
     }
 
@@ -39,7 +37,7 @@ final class CommissionFeeCalculator extends Command
         $this->currencyRatesImporter->import();
 
         $commissionsFees = $this->commissionsFeeProvider->getCommissionsFeesByProvidedCommissions(
-            'input.csv'
+            $input->getArgument('file')
         );
 
         foreach ($commissionsFees as $commissionFee) {

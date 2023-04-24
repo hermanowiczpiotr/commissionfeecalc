@@ -8,6 +8,7 @@ namespace App\Application\Commission\Provider;
 use App\Application\Commission\Factory\CommissionsDtoFactory;
 use App\Application\Commission\Handler\CommissionFeeCalculatorHandler;
 use App\Domain\Commission\Entity\Commission;
+use App\Domain\Commission\Exception\FeeCalculatorNotFoundException;
 use App\Domain\Commission\Repository\CommissionRepository;
 use App\Infrastructure\FileLoader\LoadDataFromFile;
 
@@ -44,7 +45,11 @@ final class CommissionsFeeProvider
 
         $fees = [];
         foreach ($commissions as $commission) {
-            $fees[] = (string) $this->commissionFeeCalculatorHandler->calculateFee($commission);
+            try {
+                $fees[] = (string) $this->commissionFeeCalculatorHandler->calculateFee($commission);
+            } catch (FeeCalculatorNotFoundException $exception) {
+                $fees[] =  $exception->getMessage();
+            }
         }
 
         return $fees;
