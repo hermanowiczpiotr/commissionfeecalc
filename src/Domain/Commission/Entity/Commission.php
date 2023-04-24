@@ -79,10 +79,4 @@ final class Commission
     {
         return $this->currencyType;
     }
-
-    public function getDateMonthNumber(): int
-    {
-        return (int) $this->date->format('M');
-
-    }
 }

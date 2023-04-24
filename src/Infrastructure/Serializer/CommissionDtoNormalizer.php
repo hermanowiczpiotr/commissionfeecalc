@@ -1,25 +1,15 @@
 <?php
 
+
 declare(strict_types=1);
 
 namespace App\Infrastructure\Serializer;
 
 use App\Application\Commission\Dto\CommissionDto;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class CommissionDtoNormalizer implements NormalizerInterface, DenormalizerInterface
+class CommissionDtoNormalizer implements DenormalizerInterface
 {
-    public function normalize($object, $format = null, array $context = [])
-    {
-
-    }
-
-    public function supportsNormalization($data, $format = null)
-    {
-        return $data instanceof CommissionDto;
-    }
-
     public function denormalize($data, $type, $format = null, array $context = [])
     {
         $result = [];
