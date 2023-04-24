@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Application\Commission\Handler;
 
 use App\Domain\Commission\Entity\Commission;
+use App\Domain\Commission\Exception\FeeCalculatorNotFoundException;
 use App\Domain\Commission\Service\FeeCalculator;
 
 final class CommissionFeeCalculatorHandler
@@ -22,6 +23,6 @@ final class CommissionFeeCalculatorHandler
             }
         }
 
-        throw new \Exception();
+        throw FeeCalculatorNotFoundException::createForCommission($commission);
     }
 }
